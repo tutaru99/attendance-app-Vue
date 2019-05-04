@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <v-app>
+      <v-content>
+        <v-container>
+            <v-layout>
+                <v-flex xs12 sm10 offset-sm1>
+                  <v-card dark flat>
+                    <v-card-title class="py-2" primary-title>
+                        <v-flex>
+                   <span class="red--text text--lighten-2">{{attendance.attendanceDate}}</span>
+                   <span id="currentdate">
+                      - the current date
+                   </span>
+                   <v-divider class="mt-1"></v-divider>
+                </v-flex>
+                    </v-card-title>
+                    <v-flex class="px-3">
+                        <h4 class="px-3">
+                        {{ attendance.attendanceTitle }}
+                        </h4>  
+                        <p class="px-3"> {{ attendance.attendanceSignUpText }}</p>
+                        <p class="px-3"> {{ attendance.attendanceDescription }}</p>
+                        <v-flex>
+                            <v-form v-on:submit.prevent="formSubmited">
+                                <v-layout>
+                                    <v-flex>
+                                        <v-text-field id="nameInput" label="Enter Name" v-model="newAttendantName"></v-text-field>
+                                        
+                                    </v-flex>
+                                    <v-flex class="mt-2 pl-5">
+                                        <v-btn type="submit" color="red darken-4" >Submit</v-btn>
+                                    </v-flex>
+                                </v-layout>
+                            </v-form>
+                        </v-flex>
+                    </v-flex>
+                   
+                  </v-card>
+                </v-flex>
+              </v-layout>
+
+              <v-layout>
+                <v-flex xs12 sm10 offset-sm1>
+                  <v-card flat color="grey lighten-2">
+                   
+                    <v-card-title primary-title>
+                  <h4> Attending ( {{ attendantName.length }} / {{ courseCapacity }})</h4>
+                  
+                      <v-spacer></v-spacer>
+                      <v-btn v-on:click="clearEnd" color="green darken-3">Reset</v-btn>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-progress-linear
+                      color="error"
+                      height="13"
+                      value="100" v-bind:style="{ width: courseCapacityPercentage + '%' }"></v-progress-linear>
+
+                   
+                    </v-card-text>
+                    
+                    <v-card-text>
+                      <div v-if="attendantName.length >= 1">
+                        <h4>Attending:</h4>
+                    </div>
+                        <v-chip color="red darken-2" v-for="(name, index) in sortNames" :key="index">
+                        {{ name | capitalize }} ({{ index + 1}})
+                    </v-chip>
+                    
+                    <div v-if="attendantName.length == 0">
+                        <h4>No fam's added yet</h4>
+                    </div>
+                    </v-card-text>
+                  </v-card>
+                </v-flex>
+              </v-layout>
+        </v-container>
+      </v-content>
+    </v-app>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
